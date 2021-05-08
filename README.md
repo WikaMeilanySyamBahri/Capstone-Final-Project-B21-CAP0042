@@ -6,9 +6,9 @@ Versions:
 
 ## To-dos of each team:
 ### Android Development (Ichsan and Yunda):
-- a
-- b
-- c
+- a Design UI/UX
+- b Build the apps
+- c Run and debug
 
 ### Cloud Computing (Kia and Aldi):
 - a
