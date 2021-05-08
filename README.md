@@ -11,9 +11,9 @@ Versions:
 - c Run and debug
 
 ### Cloud Computing (Kia and Aldi):
-- a
-- b
-- c
+- Make Kubernetes Server
+- Make VM Instance
+- 
 
 ### Machine Learning (Wika and Daffa):
 - Find more dataset with labels and normalize the different ones (Wika)
