@@ -37,8 +37,7 @@ def avgpool2d(x, k=2):
     return tf.nn.avg_pool(x, ksize=[1, k, k, 1], strides=[1, k, k, 1],
                           padding='SAME')
 
-
-#fill in the weights
+#filling the weights from the research
 weights = {
     'wc1': [11, 11, 3, 64],
     'wc2': [5, 5, 64, 256],
@@ -50,11 +49,12 @@ weights = {
     'wd3': [4096, K],
 }
 
+#defining the weights
 def Weights(name):
     return tf.get_variable(name,dtype=tf.float32,shape=weights[name],
                            initializer=tf.contrib.layers.xavier_initializer())
 
-#fill in the biases
+#filling the biases for each layers
 biases = {
     'bc1': [64],
     'bc2': [256],
@@ -68,80 +68,6 @@ biases = {
 
 def Biases(name):
     return tf.get_variable(name,dtype=tf.float32,initializer=tf.zeros(biases[name]))
-
-def CNN(x,dropout):
-    # Reshape input picture
-    x = tf.reshape(x, shape=[-1, 224, 224, 3])
-
-
-    conv1 = conv2d(x, Weights('wc1'), Biases('bc1'), strides=4)
-    conv1 = tf.nn.relu(conv1)
-    conv1 = maxpool2d(conv1, k=2)
-
-    conv2 = conv2d(conv1, Weights('wc2'), Biases('bc2'))
-    conv2 = tf.nn.relu(conv2)
-    conv2 = maxpool2d(conv2, k=2)
-
-    conv3 = conv2d(conv2, Weights('wc3'), Biases('bc3'))
-    conv3 = tf.nn.relu(conv3)
-
-    conv4 = conv2d(conv3, Weights('wc4'), Biases('bc4'))
-    conv4 = tf.nn.relu(conv4)
-
-    conv5 = conv2d(conv4, Weights('wc5'), Biases('bc5'))
-    conv5 = tf.nn.relu(conv5)
-    conv5 = maxpool2d(conv5, k=2)
-
-    fc1 = tf.reshape(conv5, [-1,weights['wd1'][0]])
-    fc1 = tf.add(tf.matmul(fc1, Weights('wd1')), Biases('bd1'))
-    fc1 = tf.nn.relu(fc1)
-    fc1 = tf.nn.dropout(fc1, dropout)
-
-    fc2 = tf.add(tf.matmul(fc1, Weights('wd2')), Biases('bd2'))
-    fc2 = tf.nn.relu(fc2)
-    fc2 = tf.nn.dropout(fc2, dropout)
-
-    fc3 = tf.add(tf.matmul(fc2, Weights('wd3')), Biases('bd3'))
-
-    return fc3
-
-#define model
-with tf.device('/gpu:0'):
-    #training sample
-    queueu = tf.placeholder(dtype=tf.int32,shape=[1])
-    queuei = tf.placeholder(dtype=tf.int32,shape=[1])
-    queuej = tf.placeholder(dtype=tf.int32,shape=[1])
-    queueimage1 = tf.placeholder(dtype=tf.uint8,shape=[224,224,3])
-    queueimage2 = tf.placeholder(dtype=tf.uint8,shape=[224,224,3])
-    batch_train_queue = tf.FIFOQueue(batch_size*5, dtypes=[tf.int32,tf.int32,tf.int32,tf.uint8,tf.uint8], shapes=[[1],[1],[1],[224,224,3],[224,224,3]])
-    batch_train_queue_op = batch_train_queue.enqueue([queueu,queuei,queuej,queueimage1,queueimage2]);
-    u,i,j,image1,image2 = batch_train_queue.dequeue_many(batch_size)
-
-    image_test=tf.placeholder(dtype=tf.uint8,shape=[batch_size,224,224,3])
-
-    image1=(tf.to_float(image1)-127.5)/127.5
-    image2=(tf.to_float(image2)-127.5)/127.5
-    _image_test=(tf.to_float(image_test)-127.5)/127.5
-
-    u=tf.reshape(u,shape=[batch_size])
-    i=tf.reshape(i,shape=[batch_size])
-    j=tf.reshape(j,shape=[batch_size])
-
-    keep_prob = tf.placeholder(tf.float32) #dropout (keep probability)
-
-    #siamese networks
-    with tf.variable_scope("DVBPR") as scope:
-        result1 = CNN(image1,dropout)
-        scope.reuse_variables()
-        result2 = CNN(image2,dropout)
-        result_test = CNN(_image_test,1.0)
-        nn_regularizers = sum(map(tf.nn.l2_loss,[Weights('wd1'), Weights('wd2'), Weights('wd3'), Weights('wc1'), Weights('wc2'), Weights('wc3'), Weights('wc4'), Weights('wc5')]))
-        thetau = tf.Variable(tf.random_uniform([usernum,K],minval=0,maxval=1)/100)
-
-    cost_train = tf.reduce_sum(tf.log(tf.sigmoid(tf.reduce_sum(tf.multiply(tf.gather(thetau,u),tf.subtract(result1,result2)),1,keep_dims=True))))
-    regularizers = tf.nn.l2_loss(tf.gather(thetau,u))
-    cost_train -= lambda1 * nn_regularizers + lambda2 * regularizers
-    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(-cost_train)
 
 # Initializing the variables
 init = tf.initialize_all_variables()
@@ -241,6 +167,5 @@ while step * batch_size <= training_epoch*oneiteration+1:
         print 'Epoch #'+str(epoch)+':'+str(auc_test)+' '+str(auc_valid)+'\n'
         f.write('Epoch #'+str(epoch)+':'+str(auc_test)+' '+str(auc_valid)+'\n')
         f.flush()
-
     step += 1
-print "Finished Optimizing DVBPR!"
+print "DVBPR ready"
