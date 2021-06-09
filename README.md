@@ -1,8 +1,10 @@
 # LINDA Project
 # Bangkit Team 42
 
+![](pictures\Linda cover.PNG)
+
 Versions:
-0.0.3
+0.1.1
 
 ## To-dos of each team:
 ### Android Development (Ichsan and Yunda):
