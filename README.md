@@ -1,7 +1,7 @@
 # LINDA Project
-# Bangkit Team 42
+## Bangkit Team 42
 
-![](pictures\Linda cover.PNG)
+![](https://github.com/WikaMeilanySyamBahri/Capstone-Final-Project-B21-CAP0042/blob/main/pictures/Linda%20cover.PNG)
 
 Versions:
 0.1.1
