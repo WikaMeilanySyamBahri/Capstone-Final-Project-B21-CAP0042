@@ -10,7 +10,8 @@ Versions:
 ### Android Development (Ichsan and Yunda):
 Final apps : https://drive.google.com/drive/folders/12XuPlw6M3RVDUwYFC633Nh8FRJrRuuJj?usp=sharing
 
-We use implementation from Firebase authentication, firestore, and image labeling, the link is firebase.com.
+We use implementation from Firebase authentication, firestore, and image labeling, the link 
+Firebase Console - Googlehttps://console.firebase.google.com
 Before using the implementation we should add the dependecies in build gradle:app :
 ![image](https://user-images.githubusercontent.com/76938389/121353645-44973f80-c958-11eb-8642-b5635d02a8cc.png)
 
