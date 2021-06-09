@@ -19,9 +19,7 @@ After that the firebase will do the rest for us. This also help us more focus on
 the login and register code by ourselves.
 
 ### Cloud Computing (Kia and Aldi):
-- Make Kubernetes Server
-- Make VM Instance
--
+Build an environment in GCP to perform maintenance and deploy applications that have been created. Provide access to team members, create a storage, and create infrastructure related to deployment.
 
 ### Machine Learning (Wika and Daffa):
 This is a model based on the paper by UC San Diego and Adobe research titled [Visually-Aware Fashion Recommendation and Design with Generative Image Models](http://cseweb.ucsd.edu/~jmcauley/pdfs/icdm17.pdf). This model is run locally using a local machine for a total of 3 days, counting the time where the machine fails and suddenly crashes.
