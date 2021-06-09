@@ -10,6 +10,13 @@ Versions:
 ### Android Development (Ichsan and Yunda):
 Final apps : https://drive.google.com/drive/folders/12XuPlw6M3RVDUwYFC633Nh8FRJrRuuJj?usp=sharing
 
+We use implementation from Firebase authentication, firestore, and image labeling, the link is firebase.com.
+Before using the implementation we should add the dependecies in build gradle:app :
+![image](https://user-images.githubusercontent.com/76938389/121353645-44973f80-c958-11eb-8642-b5635d02a8cc.png)
+
+After that the firebase will do the rest for us. This also help us more focus on the apps rather than writing 
+the login and register code by ourselves.
+
 ### Cloud Computing (Kia and Aldi):
 - Make Kubernetes Server
 - Make VM Instance
