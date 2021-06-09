@@ -8,9 +8,7 @@ Versions:
 
 ## To-dos of each team:
 ### Android Development (Ichsan and Yunda):
-- a Design UI/UX
-- b Build the apps
-- c Run and debug
+Final apps : https://drive.google.com/drive/folders/12XuPlw6M3RVDUwYFC633Nh8FRJrRuuJj?usp=sharing
 
 ### Cloud Computing (Kia and Aldi):
 - Make Kubernetes Server
